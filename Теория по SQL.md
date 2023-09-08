@@ -38,6 +38,7 @@ mysqldump -u root -p mysql > mysql.sql
 ```bash
 mysql -u root -p mysql 
 mysql -u root -p sample D:\example.sql
+mysql -u root -p sample < example.sql
 ```
 
 Чтобы не вводить каждый раз пользователя и пароль, можно создать файл `.my.cnf` в папке запуска (дамашней папке)
