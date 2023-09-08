@@ -37,6 +37,7 @@ mysqldump -u root -p mysql > mysql.sql
 
 ```bash
 mysql -u root -p mysql 
+mysql -u root -p sample D:\example.sql
 ```
 
 Чтобы не вводить каждый раз пользователя и пароль, можно создать файл `.my.cnf` в папке запуска (дамашней папке)
@@ -48,7 +49,7 @@ mysql -u root -p mysql
 ```plaintext
 [mysql]
 user=root
-password=123
+password=1234
 ```
 
 Если хочешь оставить пароль внутри, то надо ограничить доступ, оставить только для текущего пользователя: `chmod 0600 ~/.my.cnf`
@@ -58,7 +59,8 @@ password=123
 ```plaintext
 [client]
 user=root
-password=123
+password=1234
+-- C:\Windows
 ```
 
 ### Основные команды с БД
@@ -319,8 +321,8 @@ SERIAL == BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
 
 ## 03. Операции CRUD
 
-| CRUD        | SQL    |
-| ----------- | ------ |
+| CRUD             | SQL    |
+| ---------------- | ------ |
 | **C**reate | INSERT |
 | **R**ead   | SELECT |
 | **U**pdate | UPDATE |
