@@ -275,3 +275,44 @@ SQL - Structured Query Language
 * JSON - коллекция данных (похожи на словари python)
 
 **Индексы**
+
+* Обычные
+* Уникальные, первичный ключ
+* Полнотекстовый
+
+Создать индекс внутри таблицы:
+
+```sql
+CREATE TABLE products (
+    ...
+    KEY index_of_catalog_id(catalog_id);
+)
+```
+
+Создать индексы в уже существующую таблицу:
+
+```sql
+CREATE INDEX index_of_catalog_id ON products(catalog_id);
+```
+
+Убрать индексы из таблицы:
+
+```sql
+DROP INDEX index_of_catalog_id ON products;
+```
+
+Индексы BTREE - индекы в виде бинарного дерева. Быстрый поиск.
+
+```sql
+CREATE INDEX index_of_catalog_id USING BTREE ON products(catalog_id);
+```
+
+Индексы HASH - только для точного поиска с указанием всех столбцов-индексов.
+
+```sql
+CREATE INDEX index_of_catalog_id USING HASH ON products(catalog_id);
+```
+
+**Псевдотип SERIAL**
+
+SERIAL == BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
