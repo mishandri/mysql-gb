@@ -316,3 +316,99 @@ CREATE INDEX index_of_catalog_id USING HASH ON products(catalog_id);
 **Псевдотип SERIAL**
 
 SERIAL == BIGINT UNSIGNED NOT NULL AUTO_INCREMENT UNIQUE
+
+## 03. Операции CRUD
+
+| CRUD        | SQL    |
+| ----------- | ------ |
+| **C**reate | INSERT |
+| **R**ead   | SELECT |
+| **U**pdate | UPDATE |
+| **D**elete | DELETE |
+
+**Создание значений**
+
+Одиночная вставка
+
+```sql
+INSERT INTO catalogs (name) VALUES ('Процессоры');
+INSERT INTO catalogs (name) VALUES ('Мат.платы');
+INSERT INTO catalogs (name) VALUES ('Видеокарты');
+```
+
+Многострочная вставка
+
+```sql
+INSERT INTO catalogs VALUES
+	(NULL, 'Процессоры'),
+	(NULL, 'Мат.платы'),
+	(NULL, 'Видеокарты');
+```
+
+Если нужно, чтобы не было повторяющихся значений в столбце, то можно сделать егшо уникальным.
+
+```sql
+CREATE TABLE catalogs (
+	...
+	UNIQUE unique_name(name(10))
+)
+```
+
+В этом случае при добавлении уже имеющегося значения, появится ошибка. Ошибку можно игнорировать:
+
+```sql
+INSERT IGNORE INTO catalogs VALUES 
+	(DEFAULT, 'Процессоры'),
+	(DEFAULT, 'Мат.платы'),
+	(DEFAULT, 'Видеокарты'),
+	(DEFAULT, 'Видеокарты');
+```
+
+**Чтение значений**
+
+```sql
+SELECT id, name FROM catalogs;
+SELECT name FROM catalogs;
+SELECT * FROM catalogs;
+```
+
+**Удаление значений**
+
+Удаление данных. Счётчик автоинкремента не обнуляется
+
+```sql
+DELETE FROM catalogs; -- удаляет все записи
+DELETE FROM catalogs LIMIT 2; -- удаляет первые записи
+DELETE FROM catalogs WHERE id > 1; -- удаляет записи, id которых больше 1
+DELETE FROM catalogs WHERE id > 1 LIMIT 1; -- удаляет одну запись, id которой больше 1
+```
+
+Очистка всей таблицы и обнуление счётчика автоинкримента
+
+```sql
+TURNCATE catalogs;
+```
+
+**Обновление значений**
+
+```sql
+UPDATE
+  catalogs
+SET
+  name = 'Процессоры (Intel)'
+WHERE
+  name = 'Процессоры'
+```
+
+**INSERT-SELECT**
+
+```sql
+INSERT INTO
+  cat
+SELECT
+  *
+FROM
+  catalogs;
+
+SELECT * FROM cat;
+```
