@@ -4,12 +4,17 @@ DROP TABLE IF EXISTS catalogs;	-- Удалим, если такая таблиц
 CREATE  TABLE catalogs (		-- Создаём таблицу
 	id SERIAL PRIMARY KEY,-- id будут только положительные
 	name VARCHAR(255) 			-- Название 255 символов
-	COMMENT 'Название раздела'	-- Комментарий к столбцу
+	COMMENT 'Название раздела',	-- Комментарий к столбцу
+	UNIQUE unique_name(name(10))
 ) COMMENT = 'Разделы интернет-магазина';	-- Комментарий к таблице
 
-INSERT INTO catalogs (name) VALUES ('Процессоры');
-INSERT INTO catalogs (name) VALUES ('Мат.платы');
-INSERT INTO catalogs (name) VALUES ('Видеокарты');
+INSERT IGNORE INTO catalogs VALUES 
+	(DEFAULT, 'Процессоры'),
+	(DEFAULT, 'Мат.платы'),
+	(DEFAULT, 'Видеокарты'),
+	(DEFAULT, 'Видеокарты');
+
+SELECT id, name FROM catalogs;
 
 -- Создадим таблицу для пользователей
 DROP TABLE IF EXISTS users;
